@@ -24,12 +24,12 @@ COLOR_NONE="\e[0m"
 function git_color {
   local git_status="$(git status 2> /dev/null)"
 
-  if [[ ! $git_status =~ "working directory clean" ]]; then
+  if [[ $git_status =~ "<file>" ]]; then
     echo -e $COLOR_RED
   elif [[ $git_status =~ "Your branch is ahead of" ]]; then
-    echo -e $COLOR_YELLOW
+    echo -e $COLOR_LIGHT_YELLOW
   elif [[ $git_status =~ "nothing to commit" ]]; then
-    echo -e $COLOR_GREEN
+    echo -e $COLOR_LIGHT_GREEN
   else
     echo -e $COLOR_OCHRE
   fi
@@ -52,4 +52,3 @@ PS1+="\[$COLOR_LIGHT_GREEN\]\$(pwd)"	    	  # basename of pwd
 PS1+="\[\$(git_color)\]"                    	  # colors git status
 PS1+="\$(__git_ps1 '  [%s]')"               	  # prints current branch
 PS1+="\[$COLOR_LIGHT_BLUE\] \$\[$COLOR_RESET\] "  # '#' for root, else '$'
- 
